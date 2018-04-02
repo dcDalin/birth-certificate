@@ -1,0 +1,4 @@
+// Birth Certificates View Code
+
+SELECT 
+tbl_births.entryNo, tbl_births.childFirstName, tbl_births.childOtherName, tbl_births.fatherTribalName, tbl_births.childDateOfBirth, tbl_births.sex, tbl_births.placeOfBirth, tbl_births.townOfBirth, tbl_births.countyOfBirth, tbl_births.fatherFirstName, tbl_births.fatherOtherName, tbl_births.theFatherTribalName, tbl_births.motherId, tbl_births.nameOfRegOfficer, tbl_mothers.idNumber, tbl_mothers.firstName AS motherFirstName, tbl_mothers.lastName AS motherLastName, tbl_mothers.email, tbl_mothers.phoneNumber, tbl_admin.adminId, tbl_admin.firstName AS adminFirstName, tbl_admin.lastName AS adminLastName FROM tbl_mothers, tbl_births, tbl_admin WHERE tbl_births.nameOfRegOfficer = tbl_admin.adminId AND tbl_births.motherId = tbl_mothers.idNumber

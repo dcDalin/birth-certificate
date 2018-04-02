@@ -3,15 +3,17 @@
         <thead>
             <tr>
             	<th>#ID</th>
-                <th>Product Name</th>
-                <th>Action</th>
+                <th>Child Name</th>
+				<th>Father</th>
+				<th>Mother</th>
+				<th>Operations</th>
             </tr>
         </thead>
         <tbody>
             <?php
 			require_once 'class.user.php';
-            $user_home = new USER();
-            $query = "SELECT * FROM tbl_mothers";
+			$user_home = new USER();
+            $query = "SELECT * FROM view_birth_certificates";
             $stmt = $user_home->runQuery( $query );
 			$stmt->execute();
 			
@@ -21,11 +23,15 @@
 				extract($row);
 				?>
 				<tr>
-		        <td><?php echo $motherId; ?></td>
-                <td><?php echo $firstName; ?></td>
-		        <td> 
-		        <a class="btn btn-sm btn-danger" id="delete_product" data-id="<?php echo $motherId; ?>" href="javascript:void(0)"><i class="glyphicon glyphicon-trash"></i></a>
-		        </td>
+					<td><?php echo $entryNo; ?></td>
+					<td><?php echo $childFirstName; ?> <?php echo $childOtherName; ?> <?php echo $fatherTribalName; ?></td>
+					<td><?php echo $fatherFirstName; ?> <?php echo $fatherOtherName; ?> <?php echo $theFatherTribalName; ?></td>
+					<td><?php echo $motherFirstName; ?> <?php echo $motherLastName; ?></td>
+					<td> 
+						<a class="btn btn-sm btn-success" href="PDF-birth-certificate.php?cert_id=<?php echo $entryNo; ?>" target="_blank" >View Certificate</a>
+						<a class="btn btn-sm btn-info" href="edit-birth-certificate.php?cert_id=<?php echo $entryNo; ?>" >Edit </a>
+						<a class="btn btn-sm btn-danger" id="delete_product" data-id="<?php echo $entryNo; ?>" href="javascript:void(0)">Delete</a>
+					</td>
 		        </tr>
 				<?php
 				}	
