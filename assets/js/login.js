@@ -75,6 +75,11 @@ $("document").ready(function() {
             '<img src="ajax-loader.gif" /> &nbsp; Logging In ...'
           );
           setTimeout(' window.location.href = "home.php"; ', 3000);
+        } else if (response == "admin-ok") {
+          $("#btn-login").html(
+            '<img src="ajax-loader.gif" /> &nbsp; Logging In ...'
+          );
+          setTimeout(' window.location.href = "admin.php"; ', 3000);
         } else {
           $("#error").fadeIn(2000, function() {
             swal("Sorry!", response, "error");

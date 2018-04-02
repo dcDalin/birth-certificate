@@ -17,7 +17,7 @@
 				$count = $stmt->rowCount();
 				
 				if($userRow['userPass']==$password){
-					echo "ok"; // log in
+					echo "admin-ok"; // log in
 					$_SESSION['userSession'] = $userRow['adminId'];
 					return true;
 				}
@@ -40,7 +40,7 @@
 				
 				if($userRow['userPass']==$password){
 					echo "ok"; // log in
-					$_SESSION['userSession'] = $userRow['motherId'];
+					$_SESSION['userSession'] = $userRow['idNumber'];
 					return true;
 				}
 				else{

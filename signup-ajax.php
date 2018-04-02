@@ -12,21 +12,6 @@
 	$response = array();
 
 	if ($_POST) {
-		
-		// $firstName = trim($_POST['firstName']);
-		// $lastName = trim($_POST['lastName'])
-		// $email = trim($_POST['email']);
-		// $idNumber = trim($_POST['idNumber']);
-		// $phoneNumber = trim($_POST['phoneNumber']);
-		// $pass = trim($_POST['cpassword']);
-
-
-		// $firstName = 'Another';
-		// $lastName = 'Another';
-		// $email = 'Another';
-		// $idNumber = 'Another';
-		// $phoneNumber = 'Another';
-		// $pass = 'Another';
 
 		$firstName = trim($_POST['firstName']);
 		$lastName = trim($_POST['lastName']);

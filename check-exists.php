@@ -50,4 +50,20 @@
 		} else {
 			echo 'true'; 
 		}
+	}
+	
+	if ( isset($_REQUEST['motherId']) && !empty($_REQUEST['motherId']) ) {
+		
+		$motherId = trim($_REQUEST['motherId']);
+		$motherId = strip_tags($motherId);
+		
+		$query = "SELECT idNumber FROM tbl_mothers WHERE idNumber=:motherId";
+		$stmt = $user_home->runQuery( $query );
+		$stmt->execute(array(':motherId'=>$motherId));
+		
+		if ($stmt->rowCount() == 1) {
+			echo 'true'; 
+		} else {
+			echo 'false'; 
+		}
     }

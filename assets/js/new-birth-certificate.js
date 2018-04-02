@@ -22,35 +22,64 @@ $("document").ready(function() {
     return this.optional(element) || pregex.test(value);
   });
 
-  $("#signup-form").validate({
+  $("#birth-cert-form").validate({
     rules: {
-      firstName: {
+      motherId: {
         required: true,
-        validname: true,
-        minlength: 3
-      },
-      lastName: {
-        required: true,
-        validname: true,
-        minlength: 3
-      },
-      email: {
-        required: true,
-        validemail: true,
+        number: true,
+        minlength: 7,
+        maxlength: 10,
         remote: {
           url: "check-exists.php",
           type: "post",
           data: {
-            email: function() {
-              return $("#email").val();
+            motherId: function() {
+              return $("#motherId").val();
             }
           }
         }
       },
+      childFirstName: {
+        required: true,
+        validname: true,
+        minlength: 3
+      },
+      childOtherName: {
+        required: true,
+        validname: true,
+        minlength: 3
+      },
+      fatherTribalName: {
+        required: true,
+        validname: true,
+        minlength: 3
+      },
+      childDateOfBirth: {
+        required: true
+      },
+      placeOfBirth: {
+        required: true,
+        validname: true,
+        minlength: 3
+      },
+      townOfBirth: {
+        required: true,
+        validname: true,
+        minlength: 3
+      },
+      fatherFirstName: {
+        required: true,
+        validname: true,
+        minlength: 3
+      },
+      fatherOtherName: {
+        required: true,
+        validname: true,
+        minlength: 3
+      },
       idNumber: {
         required: true,
-        number: true,
-        minlength: 7,
+        minlength: 5,
         maxlength: 10,
         remote: {
           url: "check-exists.php",
@@ -64,7 +93,6 @@ $("document").ready(function() {
       },
       phoneNumber: {
         required: true,
-        number: true,
         validphone: true,
         minlength: 10,
         maxlength: 10,
@@ -89,31 +117,59 @@ $("document").ready(function() {
       }
     },
     messages: {
-      firstName: {
+      motherId: {
+        required: "Mother ID Number is required",
+        number: "Only digits allowed",
+        minlength: "ID Number seems short",
+        maxlength: "ID Number seems long",
+        remote: "Mother ID not found"
+      },
+      childFirstName: {
         required: "First Name is required",
         validname: "First Name is invalid",
         minlength: "Your First Name name is too short"
       },
-      lastName: {
-        required: "Last Name is required",
-        validname: "Last Name is invalid",
-        minlength: "Your Last name is too short"
+      childOtherName: {
+        required: "Other Name is required",
+        validname: "Other Name is invalid",
+        minlength: "Child Other Name is too short"
       },
-      email: {
-        required: "Email is required",
-        validemail: "Please enter valid email address",
-        remote: "Email already exists"
+      fatherTribalName: {
+        required: "Father Tribal Name is required",
+        validname: "Father Tribal Name is invalid",
+        minlength: "Father Tribal Name is too short"
+      },
+      childDateOfBirth: {
+        required: "Date of Birth is required"
+      },
+      placeOfBirth: {
+        required: "Place of Birth is required",
+        validname: "Place of Birthis invalid",
+        minlength: "Place of Birth is too short"
+      },
+      townOfBirth: {
+        required: "Town of Birth is required",
+        validname: "Town of Birthis invalid",
+        minlength: "Town of Birth is too short"
+      },
+      fatherFirstName: {
+        required: "Father First Name is required",
+        validname: "Father First Name is invalid",
+        minlength: "Father First Name name is too short"
+      },
+      fatherOtherName: {
+        required: "Father Other Name is required",
+        validname: "Father Other Name is invalid",
+        minlength: "Father Other Name is too short"
       },
       idNumber: {
         required: "ID Number is required",
-        number: "Only digits allowed",
         minlength: "ID Number seems short",
         maxlength: "ID Number seems long",
         remote: "ID Number already exists"
       },
       phoneNumber: {
         required: "Phone Number is required",
-        number: "Only digits allowed",
         validphone: "Should start with '07'",
         minlength: "Phone number seems short",
         maxlength: "Phone number seems long",
@@ -154,14 +210,14 @@ $("document").ready(function() {
 
   function submitForm() {
     $.ajax({
-      url: "signup-ajax.php",
+      url: "new-birth-certificate-ajax.php",
       type: "POST",
-      data: $("#signup-form").serialize(),
+      data: $("#birth-cert-form").serialize(),
       dataType: "json"
     })
       .done(function(data) {
-        $("#btn-signup")
-          .html('<img src="ajax-loader.gif" /> &nbsp; signing up...')
+        $("#btn-birth-cert")
+          .html('<img src="ajax-loader.gif" /> &nbsp; Sending...')
           .prop("disabled", true);
         $(
           "input[type=text],input[type=email],input[type=number],input[type=password]"
@@ -175,12 +231,12 @@ $("document").ready(function() {
                 // $("#errorDiv").html(
                 //   '<div class="alert alert-info">' + data.message + "</div>"
                 // );
-                $("#signup-form").trigger("reset");
+                $("#birth-cert-form").trigger("reset");
                 $(
                   "input[type=text],input[type=email],input[type=number],input[type=password]"
                 ).prop("disabled", true);
-                $("#btn-signup")
-                  .html("Create another account")
+                $("#btn-birth-cert")
+                  .html("SUBMIT DETAILS")
                   .prop("disabled", true);
               })
               .delay(3000)
@@ -192,12 +248,12 @@ $("document").ready(function() {
                 //   '<div class="alert alert-danger">' + data.message + "</div>"
                 // );
                 swal("Error!", data.message, "danger");
-                $("#signup-form").trigger("reset");
+                $("#birth-cert-form").trigger("reset");
                 $(
                   "input[type=text],input[type=email],input[type=password]"
                 ).prop("disabled", false);
-                $("#btn-signup")
-                  .html("SIGNUP AGAIN")
+                $("#btn-birth-cert")
+                  .html("SUBMIT DETAILS")
                   .prop("disabled", false);
               })
               .delay(3000)
@@ -206,7 +262,7 @@ $("document").ready(function() {
         }, 3000);
       })
       .fail(function() {
-        $("#signup-form").trigger("reset");
+        $("#birth-cert-form").trigger("reset");
         alert("An unknown error occoured, Please try again Later...");
       });
   }

@@ -33,7 +33,27 @@ class USER
 			return true;
 		}
 	}
-	
+	public function GetRows($sql) {
+		try {
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+			$results = $stmt->fetchAll(PDO::FETCH_ASSOC);
+			$stmt->closeCursor();
+			return $results;
+		}catch(Exception $e) {
+			die ( $e->getMessage() );
+		}
+	}
+	public function Insert($sql) {
+		try {
+			$stmt = $this->conn->prepare($sql);
+			$stmt->execute();
+			$stmt->closeCursor();
+			return $this->conn->lastInsertId();
+		}catch(Exception $e) {
+			return $e->getMessage();
+		}
+	}
 	public function redirect($url)
 	{
 		header("Location: $url");
