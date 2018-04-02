@@ -137,6 +137,12 @@
   font-size: 20px;
   padding-left: 40px;
 }
+.help-block {
+  color: red;
+  font-size: 12px;
+  margin: 0;
+  padding: 0;
+}
 body {
   background: #ecf0f1; /* fallback for old browsers */
   font-family: "Roboto", sans-serif;
