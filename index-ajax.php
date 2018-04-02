@@ -5,35 +5,51 @@
 
 	if(isset($_POST['btn-login']))
 	{
-		//$user_name = $_POST['user_name'];
-		$user_email = trim($_POST['user_email']);
-		$user_password = trim($_POST['password']);
-		
-		$password = md5($user_password);
-		
-		try
-		{	
-		
-			$stmt = $user_home->runQuery("SELECT * FROM tbl_mothers WHERE email=:email");
-			$stmt->execute(array(":email"=>$user_email));
-			$userRow = $stmt->fetch(PDO::FETCH_ASSOC);
-			$count = $stmt->rowCount();
-			
-			if($userRow['userPass']==$password){
+		// if admin is checked
+		if(isset($_POST['isAdmin'])){
+			$user_email = trim($_POST['user_email']);
+			$user_password = trim($_POST['password']);
+			$password = md5($user_password);
+			try{	
+				$stmt = $user_home->runQuery("SELECT * FROM tbl_admin WHERE email=:email");
+				$stmt->execute(array(":email"=>$user_email));
+				$userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+				$count = $stmt->rowCount();
 				
-				echo "ok"; // log in
-				
-				$_SESSION['userSession'] = $userRow['motherId'];
-						return true;
+				if($userRow['userPass']==$password){
+					echo "ok"; // log in
+					$_SESSION['userSession'] = $userRow['adminId'];
+					return true;
+				}
+				else{
+					echo "Admin Email and or Password is incorrect."; // wrong details 
+				}	
 			}
-			else{
-				
-				echo "Email and or Password is incorrect."; // wrong details 
+			catch(PDOException $e){
+				echo $e->getMessage();
 			}
+		}else{
+			$user_email = trim($_POST['user_email']);
+			$user_password = trim($_POST['password']);
+			$password = md5($user_password);
+			try{	
+				$stmt = $user_home->runQuery("SELECT * FROM tbl_mothers WHERE email=:email");
+				$stmt->execute(array(":email"=>$user_email));
+				$userRow = $stmt->fetch(PDO::FETCH_ASSOC);
+				$count = $stmt->rowCount();
 				
-		}
-		catch(PDOException $e){
-			echo $e->getMessage();
+				if($userRow['userPass']==$password){
+					echo "ok"; // log in
+					$_SESSION['userSession'] = $userRow['motherId'];
+					return true;
+				}
+				else{
+					echo "Email and or Password is incorrect."; // wrong details 
+				}	
+			}
+			catch(PDOException $e){
+				echo $e->getMessage();
+			}
 		}
 	}
 

@@ -38,7 +38,7 @@
                     <div class="col-md-12">
                         <div class="form-group">
                             <label>Admin ?</label>
-                            <input type="checkbox" name="vehicle" value="Bike" style="width: 30px; height: 23px; position: absolute; left: 33%;">
+                            <input type="checkbox" name="isAdmin" value="Yes" style="width: 30px; height: 23px; position: absolute; left: 33%;">
                         </div>
                     </div>
                     <div class="col-md-12">
@@ -49,7 +49,7 @@
                         </div>
                     </div>
                     <p class="message">
-                        <a href="#">Forgot Password?</a>
+                        <a href="#">.</a>
                     </p>
                 </form>
             </div>
