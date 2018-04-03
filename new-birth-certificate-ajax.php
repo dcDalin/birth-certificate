@@ -13,7 +13,6 @@
 
 	if ($_POST) {
 
-        $entryNo = uniqid();
 		$motherId = trim($_POST['motherId']);
 		$childFirstName = trim($_POST['childFirstName']);
 		$childOtherName = trim($_POST['childOtherName']);
@@ -30,14 +29,13 @@
 
         $sql = "
             INSERT INTO `tbl_births` 
-                (`entryNo`, `childFirstName`, `childOtherName`, `fatherTribalName`, `childDateOfBirth`, `sex`, `placeOfBirth`, `townOfBirth`, `countyOfBirth`, `fatherFirstName`, `fatherOtherName`, `theFatherTribalName`, `motherId`, `nameOfRegOfficer`) 
+                (`childFirstName`, `childOtherName`, `fatherTribalName`, `childDateOfBirth`, `sex`, `placeOfBirth`, `townOfBirth`, `countyOfBirth`, `fatherFirstName`, `fatherOtherName`, `theFatherTribalName`, `motherId`, `nameOfRegOfficer`) 
             VALUES 
-                (:entryNo,  :childFirstName,  :childOtherName,  :fatherTribalName,  :childDateOfBirth,  :sex,  :placeOfBirth,  :townOfBirth,  :countyOfBirth,  :fatherFirstName,  :fatherOtherName,  :theFatherTribalName,  :motherId,  :nameOfRegOfficer);  
+                (:childFirstName,  :childOtherName,  :fatherTribalName,  :childDateOfBirth,  :sex,  :placeOfBirth,  :townOfBirth,  :countyOfBirth,  :fatherFirstName,  :fatherOtherName,  :theFatherTribalName,  :motherId,  :nameOfRegOfficer);  
         ";
 
         $stmt=$user_home->runQuery( $sql );
 
-        $stmt->bindParam(':entryNo',$entryNo);
 		$stmt->bindParam(':childFirstName', $childFirstName);
 		$stmt->bindParam(':childOtherName', $childOtherName);
         $stmt->bindParam(':fatherTribalName', $fatherTribalName);

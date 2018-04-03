@@ -4,15 +4,27 @@
 
     $user_home = new USER();
 
+    if($user_home->is_logged_in()==""){
+        $user_home->redirect('index.php');
+    }
+
+    $stmt = $user_home->runQuery("SELECT * FROM tbl_mothers WHERE idNumber=:uid");
+    $stmt->execute(array(":uid"=>$_SESSION['userSession']));
+    $the_row = $stmt->fetch(PDO::FETCH_ASSOC);
+
 ?>
 <?php
-    $cur_page = 'index';
+    $cur_page = 'home';
     include 'includes/inc-header.php';
-    include 'includes/inc-nav.php';
+    include 'includes/inc-mother-nav.php';
 ?>
-        <div class="login-page">
+        <div class="logged-user">
+        <h2>Logged in as: <?php echo $the_row['firstName'];?> <?php echo $the_row['lastName'];?></h2>
+        </div>
+        <div class="large-page">
+        
             <div class="form">
-                <h2>Login</h2>
+                <h2>My Certificates</h2>
                 <br>
                 <div id="load-products"></div> <!-- products will be load here -->
             </div>
@@ -34,44 +46,9 @@
             
         });
         
-        function SwalDelete(productId){ 
-            swal({
-                title: 'Are you sure?',
-                text: "It will be deleted permanently!",
-                type: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!',
-                showLoaderOnConfirm: true,
-                
-                preConfirm: function() {
-                return new Promise(function(resolve) {
-                    
-                    $.ajax({
-                        url: 'delete.php',
-                        type: 'POST',
-                        data: 'delete='+productId,
-                        dataType: 'json'
-                    })
-                    .done(function(response){
-                        swal('Deleted!', response.message, response.status);
-                        readProducts();
-                    })
-                    .fail(function(){
-                        swal('Oops...', 'Something went wrong with ajax !', 'error');
-                    });
-                });
-                },
-                allowOutsideClick: false			  
-            });	
-            
-        }
-        
         function readProducts(){
-            $('#load-products').load('read.php');	
+            $('#load-products').load('read-cert.php');	
         }
-        
     </script>
 </body>
 

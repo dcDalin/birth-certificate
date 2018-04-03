@@ -7,15 +7,21 @@
     if($user_home->is_logged_in()==""){
         $user_home->redirect('index.php');
     }
+    $stmt = $user_home->runQuery("SELECT * FROM tbl_admin WHERE adminId=:uid");
+    $stmt->execute(array(":uid"=>$_SESSION['userSession']));
+    $the_row = $stmt->fetch(PDO::FETCH_ASSOC);
 ?>
 <?php
     $cur_page = 'admin';
     include 'includes/inc-header.php';
     include 'includes/inc-admin-nav.php';
 ?>
+        <div class="logged-user">
+        <h2>Logged in as: <?php echo $the_row['firstName'];?> <?php echo $the_row['lastName'];?></h2>
+        </div>
         <div class="large-page">
             <div class="form">
-                <h2>Birth Certificates</h2>
+                <h2>All Birth Certificates</h2>
                 <br>
                 <div id="load-products"></div> <!-- Certificates Will Load Here -->
             </div>
@@ -28,8 +34,7 @@
             
             readProducts(); /* it will load products when document loads */
             
-            $(document).on('click', '#delete_product', function(e){
-                
+            $(document).on('click', '#delete_product', function(e){       
                 var productId = $(this).data('id');
                 SwalDelete(productId);
                 e.preventDefault();
